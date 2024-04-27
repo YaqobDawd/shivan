@@ -1,21 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <title>BlazorA</title>
-    <base href="shivan" />
-    <link href="css/app.css" rel="stylesheet" />
-    
-    <!-- If you add any scoped CSS files, uncomment the following to load them
-    <link href="BlazorA.styles.css" rel="stylesheet" /> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yaqob Dawod Mohammed's CV</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Add dark mode styles */
+        .dark-mode {
+            background-color: #1a202c;
+            color: #cbd5e0;
+        }
+        
+        
+        
+        .dark-mode .bg-white {
+            background-color: #2d3748;
+            color: #cbd5e0;
+        }
+        
+        .dark-mode .text-gray-700 {
+            color: #cbd5e0;
+        }
+
+        /* Make it fully responsive */
+        @media (min-width: 640px) {
+            .background-image {
+                min-height: 100vh;
+            }
+        }
+    </style>
 </head>
+<body class="bg-gray-100 dark-mode">
 
-<body dir="rtl">
-    <div id="app">Loading...</div>
+    <!-- Navigation -->
+    <nav class="bg-gray-900 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold">Yaqob Dawod Mohammed's CV</h1>
+            <button id="downloadBtn" class="bg-white text-pink-700 px-4 py-2 rounded-lg font-semibold hover:bg-pink-100 transition duration-300"><i class="fas fa-download mr-2"></i>Download PDF</button>
+        </div>
+    </nav>
 
-   
-    <script src="_framework/blazor.webassembly.js"></script>
+    <!-- Main container with background image -->
+    <div class="background-image bg-cover bg-center bg-no-repeat ">
+
+        <!-- Overlay for better contrast -->
+        <div class="overlay">
+
+            <!-- Main content container -->
+            <div class="container mx-auto px-4 py-8 bg-white shadow-lg rounded-lg mt-8 fadeIn">
+
+                <!-- Profile info -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold mb-4 text-gradient-blue"><i class="fas fa-user mr-2"></i>Profile Info</h2>
+                    <p class="mb-4 text-gray-700 leading-relaxed">
+                        My profile showcases my breadth of experience in developing, testing, and deploying system software solutions. With a bachelor's degree in computer science, I have contributed to the success of teams in diverse projects spanning different sectors. My expertise in various programming languages, including C#, ASP, Blazor, and SQL Server, combined with my analytical skills, has enabled me to develop efficient and effective solutions that meet the needs of users and organizations. I am committed to continuous self-improvement and staying up-to-date with the latest trends and developments.
+                    </p>
+                </section>
+
+                <!-- Experience -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold mb-4 text-gradient-pink"><i class="fas fa-briefcase mr-2"></i>Experience</h2>
+                    <ul>
+                        <li class="mb-4 project-item">
+                            <h3 class="text-lg font-semibold">WareHouse Employee</h3>
+                            <p class="text-gray-700">Bohar City, 2008-2009</p>
+                        </li>
+                        <li class="mb-4 project-item">
+                            <h3 class="text-lg font-semibold">Programmer</h3>
+                            <p class="text-gray-700">Idea Group, 2016-2018</p>
+                        </li>
+                        <!-- Add more experience items here -->
+                    </ul>
+                </section>
+
+                <!-- Education -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold mb-4 text-gradient-yellow"><i class="fas fa-graduation-cap mr-2"></i>Education</h2>
+                    <p class="mb-4 text-gray-700 leading-relaxed">
+                        2017-2018: WPF C# and SQL Server Course<br>
+                        Online course: Design and analyzing system using C# WPF with SQL server completely for warehouse with showing up the monthly report and getting a lot of information with programming language
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        2020-2022: ASP.net Blazor and SQL Server<br>
+                        Online course: Creating a web application using Blazor technology with SQL server Database like computer system in that technology Creating (Server Web application, Client Web application, and API Web application) within one website.
+                    </p>
+                </section>
+
+                <!-- Projects -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold mb-4 text-gradient-green"><i class="fas fa-project-diagram mr-2"></i>Projects</h2>
+                    <ul>
+                        <li class="mb-4 project-item">
+                            <h3 class="text-lg font-semibold">Sale System</h3>
+                        </li>
+                        <li class="mb-4 project-item">
+                            <h3 class="text-lg font-semibold">Office Management</h3>
+                        </li>
+                        <!-- Add more project items here -->
+                    </ul>
+                </section>
+
+                <!-- Contact Info -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold mb-4 text-gradient-blue"><i class="fas fa-address-book mr-2"></i>Contact Info</h2>
+                    <p class="mb-4 text-gray-700 contact-info-item">Phone: 07501291918</p>
+                    <p class="mb-4 text-gray-700 contact-info-item">Email: Yaqob.dawd@gmail.com</p>
+                    <p class="text-gray-700 contact-info-item">Duhok-Tanahi Twisan St.</p>
+                </section>
+
+                <!-- Skills -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold mb-4 text-gradient-pink"><i class="fas fa-cogs mr-2"></i>Skills</h2>
+                    <ul>
+                        <li class="mb-2 text-gray-700 skill-item">Computer System Development</li>
+                        <li class="mb-2 text-gray-700 skill-item">Typing 40 w/m</li>
+                        <li class="mb-2 text-gray-700 skill-item">Mathmatic Skills</li>
+                        <!-- Add more skills here -->
+                    </ul>
+                </section>
+
+                <!-- Degree -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold mb-4 text-gradient-yellow"><i class="fas fa-graduation-cap mr-2"></i>Degree</h2>
+                    <p class="text-gray-700">Bachelor's Degree, Computer Science - University Of Duhok, 2016-2017</p>
+                </section>
+
+                <!-- Language -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-semibold mb-4 text-gradient-green"><i class="fas fa-language mr-2"></i>Language</h2>
+                    <ul>
+                        <li class="mb-2 text-gray-700">Kurdish</li>
+                        <li class="mb-2 text-gray-700">English</li>
+                        <li class="mb-2 text-gray-700">Arabic</li>
+                        <li class="mb-2 text-gray-700">Farsi</li>
+                        <!-- Add more languages here -->
+                    </ul>
+                </section>
+
+            </div> <!-- End of main content container -->
+
+        </div> <!-- End of overlay -->
+
+    </div> <!-- End of background image -->
+
+    <script>
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.addEventListener('click', () => {
+            window.print();
+        });
+    </script>
+
 </body>
-
 </html>
