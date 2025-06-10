@@ -8,20 +8,25 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Poppins -->
+    <!-- Google Fonts: Poppins (for EN/KU) and Tajawal (for AR) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
-        /* Use Poppins as the primary font */
+        /* Default font for LTR languages */
         body {
             font-family: 'Poppins', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Font for RTL (Arabic) */
+        html[dir="rtl"] body {
+            font-family: 'Tajawal', sans-serif;
         }
 
         /* Hero section background gradient */
@@ -31,46 +36,32 @@
 
         /* Custom animation for elements appearing on scroll */
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .scroll-animate {
-            opacity: 0; /* Initially hidden */
-        }
-        
-        .scroll-animate.in-view {
-            animation: slideUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-        }
+        .scroll-animate { opacity: 0; }
+        .scroll-animate.in-view { animation: slideUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; }
 
         /* Card hover effect */
-        .card-hover {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .card-hover:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
 
-        /* Style for the sticky navigation bar */
+        /* Sticky navigation bar style */
         #navbar.nav-sticky {
             background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            animation: slideDown 0.5s ease-out;
         }
+        #navbar.nav-sticky .nav-link, #navbar.nav-sticky .nav-brand { color: #374151; }
         
         @keyframes slideDown {
           from { transform: translateY(-100%); }
           to { transform: translateY(0); }
         }
-
     </style>
 </head>
 <body class="bg-gray-50 text-gray-700">
@@ -79,35 +70,48 @@
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0">
-                    <a href="#hero" class="text-2xl font-bold text-white">Yaqob Dawod</a>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#profile" class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium">Profile</a>
-                        <a href="#skills" class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium">Skills</a>
-                        <a href="#experience" class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium">Experience</a>
-                        <a href="#projects" class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium">Projects</a>
-                        <a href="#contact" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-full text-sm font-medium transition-transform transform hover:scale-105">Contact Me</a>
+                <a href="#hero" class="text-2xl font-bold text-white nav-brand" data-translate="nav_brand">Yaqob Dawod</a>
+                
+                <div class="flex items-center">
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-4">
+                        <a href="#profile" class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium nav-link" data-translate="nav_profile">Profile</a>
+                        <a href="#skills" class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium nav-link" data-translate="nav_skills">Skills</a>
+                        <a href="#experience" class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium nav-link" data-translate="nav_experience">Experience</a>
+                        <a href="#projects" class="text-white hover:text-blue-300 px-3 py-2 rounded-md text-sm font-medium nav-link" data-translate="nav_projects">Projects</a>
+                        <a href="#contact" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-full text-sm font-medium transition-transform transform hover:scale-105" data-translate="nav_contact">Contact Me</a>
                     </div>
-                </div>
-                 <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
-                        <span class="sr-only">Open main menu</span>
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
+
+                    <!-- Language Switcher -->
+                    <div class="relative ml-4" id="language-switcher">
+                        <button id="lang-menu-button" class="flex items-center justify-center p-2 rounded-full text-white hover:bg-white/20 focus:outline-none">
+                            <i class="fas fa-globe text-xl"></i>
+                        </button>
+                        <div id="lang-menu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg py-1 z-50">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="en">English</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="ku">کوردی</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="ar">العربية</a>
+                        </div>
+                    </div>
+
+                    <!-- Mobile menu button -->
+                    <div class="md:hidden ml-2">
+                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-blue-300 hover:bg-white/20 focus:outline-none">
+                            <i class="fas fa-bars text-2xl"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-         <!-- Mobile menu, show/hide based on menu state. -->
-        <div id="mobile-menu" class="md:hidden hidden">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
-                <a href="#profile" class="block text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Profile</a>
-                <a href="#skills" class="block text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Skills</a>
-                <a href="#experience" class="block text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Experience</a>
-                <a href="#projects" class="block text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium">Projects</a>
-                <a href="#contact" class="block bg-blue-600 text-white hover:bg-blue-700 px-3 py-2 rounded-md text-base font-medium">Contact Me</a>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#profile" class="block text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium" data-translate="nav_profile_mobile">Profile</a>
+                <a href="#skills" class="block text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium" data-translate="nav_skills_mobile">Skills</a>
+                <a href="#experience" class="block text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium" data-translate="nav_experience_mobile">Experience</a>
+                <a href="#projects" class="block text-gray-600 hover:text-blue-600 hover:bg-gray-50 px-3 py-2 rounded-md text-base font-medium" data-translate="nav_projects_mobile">Projects</a>
+                <a href="#contact" class="block bg-blue-600 text-white hover:bg-blue-700 px-3 py-2 rounded-md text-base font-medium" data-translate="nav_contact_mobile">Contact Me</a>
             </div>
         </div>
     </nav>
@@ -115,166 +119,73 @@
     <!-- Hero Section -->
     <header id="hero" class="hero-gradient text-white min-h-screen flex items-center justify-center text-center p-8">
         <div class="max-w-4xl">
-            <!-- User can replace this placeholder with their actual image URL -->
-            <img src="css/MyImage.jpg" alt="Yaqob Dawod Mohammed" class="rounded-full w-64 h-64 mx-auto mb-8 border-8 border-white/50 shadow-2xl">
-            <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-4">Yaqob Dawod Mohammed</h1>
-            <p class="text-xl md:text-2xl text-blue-200 mb-8">Frontend & Fullstack Developer | C# | .NET | Blazor</p>
-            <!-- User should ensure this path points to their downloadable CV file -->
+            <img src="css/MyImage.jpg" alt="Yaqob Dawod Mohammed" class="rounded-full w-40 h-40 mx-auto mb-8 border-8 border-white/50 shadow-2xl">
+            <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-4" data-translate="hero_title">Yaqob Dawod Mohammed</h1>
+            <p class="text-xl md:text-2xl text-blue-200 mb-8" data-translate="hero_subtitle">Frontend & Fullstack Developer | C# | .NET | Blazor</p>
             <a href="css/YaqobDawdCV.pdf" download="YaqobDawdCV.pdf" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full text-lg hover:bg-gray-100 transition-transform transform hover:scale-105 shadow-lg">
-                <i class="fas fa-download mr-3"></i> Download My CV
+                <i class="fas fa-download mr-3 rtl:ml-3 rtl:mr-0"></i> <span data-translate="hero_button">Download My CV</span>
             </a>
         </div>
     </header>
 
     <main class="container mx-auto px-6 py-20">
-        <!-- Profile Section -->
+        <!-- All sections below will be populated by JavaScript -->
         <section id="profile" class="mb-24 scroll-animate">
-            <h2 class="text-4xl font-bold text-center mb-4">About Me</h2>
-            <p class="text-center text-gray-500 mb-12 max-w-3xl mx-auto">A snapshot of my professional background and skills.</p>
-            <p class="text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto text-center">
-                I am a detail-oriented and experienced Fullstack Developer with a strong background in C#, .NET, and modern web technologies like Blazor. With a proven ability to design, develop, and deploy robust software solutions, I thrive in collaborative environments and am dedicated to continuous learning and delivering high-quality, user-centric applications that solve real-world problems.
+            <h2 class="text-4xl font-bold text-center mb-4" data-translate="profile_title">About Me</h2>
+            <p class="text-center text-gray-500 mb-12 max-w-3xl mx-auto" data-translate="profile_subtitle">A snapshot of my professional background and skills.</p>
+            <p class="text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto text-center" data-translate="profile_desc">
+                I am a detail-oriented and experienced Fullstack Developer...
             </p>
         </section>
         
-        <!-- Skills Section -->
         <section id="skills" class="mb-24 scroll-animate">
-             <h2 class="text-4xl font-bold text-center mb-4">My Skillset</h2>
-             <p class="text-center text-gray-500 mb-12 max-w-3xl mx-auto">The tools and technologies I use to build things.</p>
+             <h2 class="text-4xl font-bold text-center mb-4" data-translate="skills_title">My Skillset</h2>
+             <p class="text-center text-gray-500 mb-12 max-w-3xl mx-auto" data-translate="skills_subtitle">The tools and technologies I use to build things.</p>
              <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                 <div class="p-4"><i class="fas fa-code text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg">C# & .NET</h3></div>
-                 <div class="p-4"><i class="fab fa-microsoft text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg">Blazor & ASP.NET</h3></div>
-                 <div class="p-4"><i class="fas fa-database text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg">SQL Server</h3></div>
-                 <div class="p-4"><i class="fas fa-users text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg">Teamwork</h3></div>
-                 <div class="p-4"><i class="fas fa-lightbulb text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg">Problem Solving</h3></div>
-                 <div class="p-4"><i class="fas fa-desktop text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg">PC Maintenance</h3></div>
-                 <div class="p-4"><i class="fas fa-paint-brush text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg">Creativity</h3></div>
-                 <div class="p-4"><i class="fas fa-keyboard text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg">Fast Typing</h3></div>
+                 <div><i class="fas fa-code text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg" data-translate="skill_1">C# & .NET</h3></div>
+                 <div><i class="fab fa-microsoft text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg" data-translate="skill_2">Blazor & ASP.NET</h3></div>
+                 <div><i class="fas fa-database text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg" data-translate="skill_3">SQL Server</h3></div>
+                 <div><i class="fas fa-users text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg" data-translate="skill_4">Teamwork</h3></div>
+                 <div><i class="fas fa-lightbulb text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg" data-translate="skill_5">Problem Solving</h3></div>
+                 <div><i class="fas fa-desktop text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg" data-translate="skill_6">PC Maintenance</h3></div>
+                 <div><i class="fas fa-paint-brush text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg" data-translate="skill_7">Creativity</h3></div>
+                 <div><i class="fas fa-keyboard text-5xl text-blue-600 mb-4"></i><h3 class="font-semibold text-lg" data-translate="skill_8">Fast Typing</h3></div>
              </div>
         </section>
 
-        <!-- Experience Section -->
         <section id="experience" class="mb-24 scroll-animate">
-            <h2 class="text-4xl font-bold text-center mb-4">Work Experience</h2>
-            <p class="text-center text-gray-500 mb-12 max-w-3xl mx-auto">My professional journey and key accomplishments.</p>
-            <div class="max-w-4xl mx-auto space-y-8 relative before:absolute before:inset-0 before:ml-5 before:w-0.5 before:bg-gray-200">
-                <!-- Experience Item -->
-                <div class="relative flex items-start pl-12">
-                     <span class="absolute left-0 top-0 flex items-center justify-center w-10 h-10 bg-blue-600 rounded-full text-white ring-8 ring-gray-50"><i class="fas fa-briefcase"></i></span>
-                    <div class="bg-white p-6 rounded-lg border w-full card-hover">
-                        <h3 class="font-bold text-xl mb-1">Accountant & IT Specialist</h3>
-                        <p class="text-blue-600 font-medium mb-2">Idea Group | 2022 - 2024</p>
-                        <p class="text-gray-600">Oversaw financial operations while managing IT infrastructure, including software maintenance and database administration.</p>
-                    </div>
-                </div>
-                <!-- Experience Item -->
-                <div class="relative flex items-start pl-12">
-                    <span class="absolute left-0 top-0 flex items-center justify-center w-10 h-10 bg-blue-600 rounded-full text-white ring-8 ring-gray-50"><i class="fas fa-chalkboard-teacher"></i></span>
-                    <div class="bg-white p-6 rounded-lg border w-full card-hover">
-                        <h3 class="font-bold text-xl mb-1">Programming Teacher</h3>
-                        <p class="text-blue-600 font-medium mb-2">Mitan Institute | 2022 - 2023</p>
-                        <p class="text-gray-600">Delivered hands-on training in full-stack development, specializing in Blazor, C#, and SQL.</p>
-                    </div>
-                </div>
-                <!-- Experience Item -->
-                <div class="relative flex items-start pl-12">
-                    <span class="absolute left-0 top-0 flex items-center justify-center w-10 h-10 bg-blue-600 rounded-full text-white ring-8 ring-gray-50"><i class="fas fa-chalkboard-teacher"></i></span>
-                    <div class="bg-white p-6 rounded-lg border w-full card-hover">
-                        <h3 class="font-bold text-xl mb-1">Teacher & Lecturer</h3>
-                        <p class="text-blue-600 font-medium mb-2">Roj & Tishk Institutes | 2019 - 2022</p>
-                        <p class="text-gray-600">Taught programming courses on C#, Blazor, and database management, and delivered university lectures on software development concepts.</p>
-                    </div>
-                </div>
-                 <!-- Experience Item -->
-                <div class="relative flex items-start pl-12">
-                     <span class="absolute left-0 top-0 flex items-center justify-center w-10 h-10 bg-blue-600 rounded-full text-white ring-8 ring-gray-50"><i class="fas fa-code"></i></span>
-                    <div class="bg-white p-6 rounded-lg border w-full card-hover">
-                        <h3 class="font-bold text-xl mb-1">Software Programmer</h3>
-                        <p class="text-blue-600 font-medium mb-2">Idea Group | 2016 - 2018</p>
-                        <p class="text-gray-600">Developed and maintained high-performance, database-driven software solutions using C# and the .NET framework.</p>
-                    </div>
-                </div>
+            <h2 class="text-4xl font-bold text-center mb-4" data-translate="exp_title">Work Experience</h2>
+            <p class="text-center text-gray-500 mb-12 max-w-3xl mx-auto" data-translate="exp_subtitle">My professional journey and key accomplishments.</p>
+            <div id="experience-timeline" class="max-w-4xl mx-auto space-y-8 relative before:absolute before:inset-0 before:ml-5 rtl:before:ml-0 rtl:before:mr-5 before:w-0.5 before:bg-gray-200">
+                <!-- Experience items will be injected here by JS -->
             </div>
         </section>
 
-        <!-- Education Section -->
         <section id="education" class="mb-24 scroll-animate">
-            <h2 class="text-4xl font-bold text-center mb-4">Education & Certifications</h2>
-            <p class="text-center text-gray-500 mb-12 max-w-3xl mx-auto">My academic background and professional training.</p>
-            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-lg border card-hover flex items-start space-x-4">
-                    <i class="fas fa-graduation-cap text-3xl text-blue-600 mt-1"></i>
-                    <div>
-                        <h3 class="font-bold text-xl mb-1">Bachelor's in Computer Science</h3>
-                        <p class="text-gray-500">University of Duhok | 2016 - 2017</p>
-                    </div>
-                </div>
-                 <div class="bg-white p-6 rounded-lg border card-hover flex items-start space-x-4">
-                    <i class="fas fa-certificate text-3xl text-blue-600 mt-1"></i>
-                    <div>
-                        <h3 class="font-bold text-xl mb-1">ASP.NET Blazor & SQL Server</h3>
-                        <p class="text-gray-500">Online Course | 2020 - 2022</p>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-lg border card-hover flex items-start space-x-4">
-                    <i class="fas fa-certificate text-3xl text-blue-600 mt-1"></i>
-                    <div>
-                        <h3 class="font-bold text-xl mb-1">WPF C# & SQL Server</h3>
-                        <p class="text-gray-500">Online Course | 2017 - 2018</p>
-                    </div>
-                </div>
+            <h2 class="text-4xl font-bold text-center mb-4" data-translate="edu_title">Education & Certifications</h2>
+            <p class="text-center text-gray-500 mb-12 max-w-3xl mx-auto" data-translate="edu_subtitle">My academic background and professional training.</p>
+            <div id="education-list" class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                <!-- Education items will be injected here by JS -->
             </div>
         </section>
 
-
-        <!-- Projects Section -->
         <section id="projects" class="mb-24 scroll-animate">
-            <h2 class="text-4xl font-bold text-center mb-4">Key Projects</h2>
-            <p class="text-center text-gray-500 mb-12 max-w-3xl mx-auto">A selection of projects I'm proud of.</p>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <!-- Project Card -->
-                <div class="bg-white p-6 rounded-lg border card-hover">
-                    <h3 class="font-bold text-xl mb-2">Sale System</h3>
-                    <p class="text-gray-600">A comprehensive sales management system with real-time transaction tracking and invoicing.</p>
-                </div>
-                <!-- Project Card -->
-                <div class="bg-white p-6 rounded-lg border card-hover">
-                    <h3 class="font-bold text-xl mb-2">Office Management</h3>
-                    <p class="text-gray-600">Designed an office automation system to streamline administrative tasks and employee management.</p>
-                </div>
-                 <!-- Project Card -->
-                <div class="bg-white p-6 rounded-lg border card-hover">
-                    <h3 class="font-bold text-xl mb-2">Store System</h3>
-                    <p class="text-gray-600">Created a warehouse and inventory management system with stock control and order processing.</p>
-                </div>
-                 <!-- Project Card -->
-                <div class="bg-white p-6 rounded-lg border card-hover">
-                    <h3 class="font-bold text-xl mb-2">Pool Management</h3>
-                    <p class="text-gray-600">Built a system for managing pool facilities, including membership tracking and payment processing.</p>
-                </div>
-                 <!-- Project Card -->
-                <div class="bg-white p-6 rounded-lg border card-hover">
-                    <h3 class="font-bold text-xl mb-2">Purchase System</h3>
-                    <p class="text-gray-600">Developed a purchase order system to manage procurement workflows and vendor relations.</p>
-                </div>
-                 <!-- Project Card -->
-                <div class="bg-white p-6 rounded-lg border card-hover">
-                    <h3 class="font-bold text-xl mb-2">Document System</h3>
-                    <p class="text-gray-600">Designed a document management system for secure file storage, version control, and access management.</p>
-                </div>
+            <h2 class="text-4xl font-bold text-center mb-4" data-translate="proj_title">Key Projects</h2>
+            <p class="text-center text-gray-500 mb-12 max-w-3xl mx-auto" data-translate="proj_subtitle">A selection of projects I'm proud of.</p>
+            <div id="project-list" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Project cards will be injected here by JS -->
             </div>
         </section>
         
-        <!-- Contact Section -->
         <section id="contact" class="scroll-animate text-center">
-             <h2 class="text-4xl font-bold text-center mb-4">Get In Touch</h2>
-             <p class="text-center text-gray-500 mb-8 max-w-3xl mx-auto">I'm currently open to new opportunities. Let's connect!</p>
+             <h2 class="text-4xl font-bold text-center mb-4" data-translate="contact_title">Get In Touch</h2>
+             <p class="text-center text-gray-500 mb-8 max-w-3xl mx-auto" data-translate="contact_subtitle">I'm currently open to new opportunities. Let's connect!</p>
              <a href="mailto:Yaqob.dawd@gmail.com" class="inline-block bg-blue-600 text-white font-bold py-4 px-10 rounded-full text-lg hover:bg-blue-700 transition-transform transform hover:scale-105 shadow-lg">
-                <i class="fas fa-paper-plane mr-3"></i>Email Me
+                <i class="fas fa-paper-plane mr-3 rtl:ml-3 rtl:mr-0"></i> <span data-translate="contact_button">Email Me</span>
              </a>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-gray-400 py-12 mt-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div class="flex justify-center space-x-6 mb-6">
@@ -282,54 +193,420 @@
                 <a href="tel:+9647501291918" class="text-2xl hover:text-white transition-colors"><i class="fas fa-phone"></i></a>
                 <a href="mailto:Yaqob.dawd@gmail.com" class="text-2xl hover:text-white transition-colors"><i class="fas fa-envelope"></i></a>
             </div>
-            <p>&copy; <span id="year"></span> Yaqob Dawod Mohammed. All Rights Reserved.</p>
+            <p>
+                &copy; <span id="year"></span> <span data-translate="footer_main_text">Yaqob Dawod Mohammed. All Rights Reserved.</span>
+            </p>
         </div>
     </footer>
 
     <script>
-        // Set current year in footer
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        // JavaScript for sticky navigation and mobile menu
-        const navbar = document.getElementById('navbar');
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        // Toggle mobile menu
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Sticky nav logic
-        window.onscroll = () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('nav-sticky');
-            } else {
-                navbar.classList.remove('nav-sticky');
+        // --- TRANSLATION DATA ---
+        const translations = {
+            en: {
+                // Navigation
+                nav_brand: "Yaqob Dawod",
+                nav_profile: "Profile",
+                nav_skills: "Skills",
+                nav_experience: "Experience",
+                nav_projects: "Projects",
+                nav_contact: "Contact Me",
+                nav_profile_mobile: "Profile",
+                nav_skills_mobile: "Skills",
+                nav_experience_mobile: "Experience",
+                nav_projects_mobile: "Projects",
+                nav_contact_mobile: "Contact Me",
+                // Hero
+                hero_title: "Yaqob Dawod Mohammed",
+                hero_subtitle: "Frontend & Fullstack Developer | C# | .NET | Blazor",
+                hero_button: "Download My CV",
+                // Profile
+                profile_title: "About Me",
+                profile_subtitle: "A snapshot of my professional background and skills.",
+                profile_desc: "I am a detail-oriented and experienced Fullstack Developer with a strong background in C#, .NET, and modern web technologies like Blazor. With a proven ability to design, develop, and deploy robust software solutions, I thrive in collaborative environments and am dedicated to continuous learning and delivering high-quality, user-centric applications that solve real-world problems.",
+                // Skills
+                skills_title: "My Skillset",
+                skills_subtitle: "The tools and technologies I use to build things.",
+                skill_1: "C# & .NET",
+                skill_2: "Blazor & ASP.NET",
+                skill_3: "SQL Server",
+                skill_4: "Teamwork",
+                skill_5: "Problem Solving",
+                skill_6: "PC Maintenance",
+                skill_7: "Creativity",
+                skill_8: "Fast Typing",
+                // Experience
+                exp_title: "Work Experience",
+                exp_subtitle: "My professional journey and key accomplishments.",
+                exp_1_title: "Accountant & IT Specialist",
+                exp_1_org: "Idea Group | 2022 - 2024",
+                exp_1_desc: "Oversaw financial operations while managing IT infrastructure, including software maintenance and database administration.",
+                exp_2_title: "Programming Teacher",
+                exp_2_org: "Mitan Institute | 2022 - 2023",
+                exp_2_desc: "Delivered hands-on training in full-stack development, specializing in Blazor, C#, and SQL.",
+                exp_3_title: "Teacher & Lecturer",
+                exp_3_org: "Roj & Tishk Institutes | 2019 - 2022",
+                exp_3_desc: "Taught programming courses on C#, Blazor, and database management, and delivered university lectures on software development concepts.",
+                exp_4_title: "Software Programmer",
+                exp_4_org: "Idea Group | 2016 - 2018",
+                exp_4_desc: "Developed and maintained high-performance, database-driven software solutions using C# and the .NET framework.",
+                // Education
+                edu_title: "Education & Certifications",
+                edu_subtitle: "My academic background and professional training.",
+                edu_1_title: "Bachelor's in Computer Science",
+                edu_1_org: "University of Duhok | 2016 - 2017",
+                edu_2_title: "ASP.NET Blazor & SQL Server",
+                edu_2_org: "Online Course | 2020 - 2022",
+                edu_3_title: "WPF C# & SQL Server",
+                edu_3_org: "Online Course | 2017 - 2018",
+                // Projects
+                proj_title: "Key Projects",
+                proj_subtitle: "A selection of projects I'm proud of.",
+                proj_1_title: "Sale System",
+                proj_1_desc: "A comprehensive sales management system with real-time transaction tracking and invoicing.",
+                proj_2_title: "Office Management",
+                proj_2_desc: "Designed an office automation system to streamline administrative tasks and employee management.",
+                proj_3_title: "Store System",
+                proj_3_desc: "Created a warehouse and inventory management system with stock control and order processing.",
+                proj_4_title: "Pool Management",
+                proj_4_desc: "Built a system for managing pool facilities, including membership tracking and payment processing.",
+                proj_5_title: "Purchase System",
+                proj_5_desc: "Developed a purchase order system to manage procurement workflows and vendor relations.",
+                proj_6_title: "Document System",
+                proj_6_desc: "Designed a document management system for secure file storage, version control, and access management.",
+                // Contact
+                contact_title: "Get In Touch",
+                contact_subtitle: "I'm currently open to new opportunities. Let's connect!",
+                contact_button: "Email Me",
+                // Footer
+                footer_main_text: "Yaqob Dawod Mohammed. All Rights Reserved."
+            },
+            ku: {
+                // Navigation
+                nav_brand: "یعقوب داود",
+                nav_profile: "پرۆفایل",
+                nav_skills: "شارەزاییەکان",
+                nav_experience: "ئەزموون",
+                nav_projects: "پڕۆژەکان",
+                nav_contact: "پەیوەندیم پێوە بکە",
+                nav_profile_mobile: "پرۆفایل",
+                nav_skills_mobile: "شارەزاییەکان",
+                nav_experience_mobile: "ئەزموون",
+                nav_projects_mobile: "پڕۆژەکان",
+                nav_contact_mobile: "پەیوەندیم پێوە بکە",
+                // Hero
+                hero_title: "یعقوب داود محمد",
+                hero_subtitle: "پەرەپێدەری فرۆنت ئێند و فوول ستاک | C# | .NET | Blazor",
+                hero_button: "سیڤیەکەم دابەزێنە",
+                // Profile
+                profile_title: "دەربارەی من",
+                profile_subtitle: "پوختەیەک لەسەر پاشخان و شارەزاییە پیشەییەکانم.",
+                profile_desc: "من پەرەپێدەرێکی فوول ستاکی وردبین و بە ئەزموونم و پاشخانێکی بەهێزم هەیە لە C#، .NET، و تەکنەلۆژیاکانی وێبی مۆدێرن وەک Blazor. بە توانایەکی سەلمێنراو لە دیزاینکردن، پەرەپێدان، و جێبەجێکردنی چارەسەری نەرمامێری بەهێز، من لە ژینگەی کارکردنی هاوبەشدا گەشە دەکەم و پابەندم بە فێربوونی بەردەوام و پێشکەشکردنی ئەپلیکەیشنی کوالێتی بەرز و بەکارهێنەر-تەوەر کە کێشەکانی جیهانی ڕاستەقینە چارەسەر دەکەن.",
+                // Skills
+                skills_title: "شارەزاییەکانم",
+                skills_subtitle: "ئەو ئامراز و تەکنەلۆژیایانەی کە بۆ دروستکردنی شتەکان بەکاریان دێنم.",
+                skill_1: "C# & .NET",
+                skill_2: "Blazor & ASP.NET",
+                skill_3: "SQL Server",
+                skill_4: "کاری تیمی",
+                skill_5: "چارەسەرکردنی کێشە",
+                skill_6: "چاککردنەوەی کۆمپیوتەر",
+                skill_7: "داهێنان",
+                skill_8: "تایپکردنی خێرا",
+                // Experience
+                exp_title: "ئەزموونی کار",
+                exp_subtitle: "گەشتی پیشەیی و دەستکەوتە سەرەکییەکانم.",
+                exp_1_title: "ژمێریار و پسپۆڕی IT",
+                exp_1_org: "گرووپی ئایدیا | ٢٠٢٢ - ٢٠٢٤",
+                exp_1_desc: "سەرپەرشتی کردنی کاری ژمێریاری لەگەڵ بەڕێوەبردنی ژێرخانی IT، لەوانەش چاککردنەوەی نەرمامێر و بەڕێوەبردنی بنکەی داتاکان.",
+                exp_2_title: "مامۆستای پرۆگرامسازی",
+                exp_2_org: "پەیمانگای میتان | ٢٠٢٢ - ٢٠٢٣",
+                exp_2_desc: "پێشکەشکردنی ڕاهێنانی کرداری لە پەرەپێدانی فوول-ستاک، پسپۆڕی لە Blazor، C#، و SQL.",
+                exp_3_title: "مامۆستا و وانەبێژ",
+                exp_3_org: "پەیمانگاکانی ڕۆژ و تیشک | ٢٠١٩ - ٢٠٢٢",
+                exp_3_desc: "وتنەوەی کۆرسی پرۆگرامسازی لەسەر C#، Blazor، و بەڕێوەبردنی بنکەی داتاکان، و پێشکەشکردنی وانەی زانکۆیی لەسەر چەمکەکانی پەرەپێدانی نەرمامێر.",
+                exp_4_title: "پرۆگرامسازی نەرمامێر",
+                exp_4_org: "گرووپی ئایدیا | ٢٠١٦ - ٢٠١٨",
+                exp_4_desc: "پەرەپێدان و چاککردنەوەی چارەسەری نەرمامێری بەهێز و بنکە-داتایی بە بەکارهێنانی C# و .NET framework.",
+                 // Education
+                edu_title: "خوێندن و بڕوانامەکان",
+                edu_subtitle: "پاشخانی ئەکادیمی و ڕاهێنانی پیشەییم.",
+                edu_1_title: "بەکالۆریۆس لە زانستی کۆمپیوتەر",
+                edu_1_org: "زانکۆی دهۆک | ٢٠١٦ - ٢٠١٧",
+                edu_2_title: "ASP.NET Blazor & SQL Server",
+                edu_2_org: "کۆرسی ئۆنلاین | ٢٠٢٠ - ٢٠٢٢",
+                edu_3_title: "WPF C# & SQL Server",
+                edu_3_org: "کۆرسی ئۆنلاین | ٢٠١٧ - ٢٠١٨",
+                // Projects
+                proj_title: "پڕۆژە سەرەکییەکان",
+                proj_subtitle: "هەڵبژاردەیەک لەو پڕۆژانەی شانازییان پێوە دەکەم.",
+                proj_1_title: "سیستەمی فرۆشتن",
+                proj_1_desc: "سیستەمێکی گشتگیری بەڕێوەبردنی فرۆشتن لەگەڵ شوێنپێهەڵگرتنی مامەڵەی ڕاستەوخۆ و پسوولەکردن.",
+                proj_2_title: "بەڕێوەبردنی ئۆفیس",
+                proj_2_desc: "دیزاینکردنی سیستەمێکی ئۆتۆماتیکی ئۆفیس بۆ ئاسانکردنی ئەرکە کارگێڕییەکان و بەڕێوەبردنی کارمەندان.",
+                proj_3_title: "سیستەمی کۆگا",
+                proj_3_desc: "دروستکردنی سیستەمێکی بەڕێوەبردنی کۆگا و مەخزەن لەگەڵ کۆنترۆڵی ستۆک و پرۆسێسی داواکاری.",
+                proj_4_title: "بەڕێوەبردنی مەلەوانگە",
+                proj_4_desc: "دروستکردنی سیستەمێک بۆ بەڕێوەبردنی دامەزراوەکانی مەلەوانگە، لەوانەش شوێنپێهەڵگرتنی ئەندامێتی و پرۆسێسی پارەدان.",
+                proj_5_title: "سیستەمی کڕین",
+                proj_5_desc: "پەرەپێدانی سیستەمێکی داواکاری کڕین بۆ بەڕێوەبردنی کارەکانی دابینکردن و پەیوەندی فرۆشیاران.",
+                proj_6_title: "سیستەمی دۆکیومێنت",
+                proj_6_desc: "دیزاینکردنی سیستەمێکی بەڕێوەبردنی دۆکیومێنت بۆ هەڵگرتنی پارێزراوی فایل، کۆنترۆڵی ڤێرژن، و بەڕێوەبردنی دەستگەیشتن.",
+                // Contact
+                contact_title: "پەیوەندیم پێوە بکە",
+                contact_subtitle: "من لە ئێستادا کراوەم بۆ دەرفەتی نوێ. با پەیوەندی بکەین!",
+                contact_button: "ئیمەیڵم بۆ بنێرە",
+                // Footer
+                footer_main_text: "یعقوب داود محمد. هەموو مافێکی پارێزراوە."
+            },
+            ar: {
+                // Navigation
+                nav_brand: "يعقوب داود",
+                nav_profile: "الملف الشخصي",
+                nav_skills: "المهارات",
+                nav_experience: "الخبرة",
+                nav_projects: "المشاريع",
+                nav_contact: "تواصل معي",
+                nav_profile_mobile: "الملف الشخصي",
+                nav_skills_mobile: "المهارات",
+                nav_experience_mobile: "الخبرة",
+                nav_projects_mobile: "المشاريع",
+                nav_contact_mobile: "تواصل معي",
+                // Hero
+                hero_title: "يعقوب داود محمد",
+                hero_subtitle: "مطور واجهات أمامية ومتكامل | C# | .NET | Blazor",
+                hero_button: "تحميل سيرتي الذاتية",
+                // Profile
+                profile_title: "عني",
+                profile_subtitle: "لمحة سريعة عن خلفيتي المهنية ومهاراتي.",
+                profile_desc: "أنا مطور متكامل دقيق وحريص على التفاصيل ولدي خبرة وخلفية قوية في C# و .NET وتقنيات الويب الحديثة مثل Blazor. مع قدرة مثبتة على تصميم وتطوير ونشر حلول برمجية قوية، أزدهر في بيئات العمل التعاونية وأنا ملتزم بالتعلم المستمر وتقديم تطبيقات عالية الجودة تتمحور حول المستخدم وتحل مشاكل العالم الحقيقي.",
+                // Skills
+                skills_title: "مجموعة مهاراتي",
+                skills_subtitle: "الأدوات والتقنيات التي أستخدمها لبناء الأشياء.",
+                skill_1: "C# & .NET",
+                skill_2: "Blazor & ASP.NET",
+                skill_3: "SQL Server",
+                skill_4: "العمل الجماعي",
+                skill_5: "حل المشاكل",
+                skill_6: "صيانة الحاسوب",
+                skill_7: "الإبداع",
+                skill_8: "كتابة سريعة",
+                 // Experience
+                exp_title: "خبرة العمل",
+                exp_subtitle: "رحلتي المهنية وإنجازاتي الرئيسية.",
+                exp_1_title: "محاسب وأخصائي تكنولوجيا المعلومات",
+                exp_1_org: "مجموعة آيديا | ٢٠٢٢ - ٢٠٢٤",
+                exp_1_desc: "أشرفت على العمليات المالية مع إدارة البنية التحتية لتكنولوجيا المعلومات، بما في ذلك صيانة البرامج وإدارة قواعد البيانات.",
+                exp_2_title: "مدرس برمجة",
+                exp_2_org: "معهد ميتان | ٢٠٢٢ - ٢٠٢٣",
+                exp_2_desc: "قدمت تدريباً عملياً في تطوير المكدس الكامل، متخصصًا في Blazor و C# و SQL.",
+                exp_3_title: "مدرس ومحاضر",
+                exp_3_org: "معاهد روج وتيشك | ٢٠١٩ - ٢٠٢٢",
+                exp_3_desc: "قمت بتدريس دورات برمجة حول C# و Blazor وإدارة قواعد البيانات، وقدمت محاضرات جامعية حول مفاهيم تطوير البرمجيات.",
+                exp_4_title: "مبرمج برامج",
+                exp_4_org: "مجموعة آيديا | ٢٠١٦ - ٢٠١٨",
+                exp_4_desc: "قمت بتطوير وصيانة حلول برمجية عالية الأداء تعتمد على قواعد البيانات باستخدام C# و .NET framework.",
+                // Education
+                edu_title: "التعليم والشهادات",
+                edu_subtitle: "خلفيتي الأكاديمية والتدريب المهني.",
+                edu_1_title: "بكالوريوس في علوم الحاسوب",
+                edu_1_org: "جامعة دهوك | ٢٠١٦ - ٢٠١٧",
+                edu_2_title: "ASP.NET Blazor & SQL Server",
+                edu_2_org: "دورة عبر الإنترنت | ٢٠٢٠ - ٢٠٢٢",
+                edu_3_title: "WPF C# & SQL Server",
+                edu_3_org: "دورة عبر الإنترنت | ٢٠١٧ - ٢٠١٨",
+                // Projects
+                proj_title: "المشاريع الرئيسية",
+                proj_subtitle: "مجموعة مختارة من المشاريع التي أفخر بها.",
+                proj_1_title: "نظام المبيعات",
+                proj_1_desc: "نظام شامل لإدارة المبيعات مع تتبع المعاملات في الوقت الفعلي والفواتير.",
+                proj_2_title: "إدارة المكاتب",
+                proj_2_desc: "تصميم نظام أتمتة مكتبي لتبسيط المهام الإدارية وإدارة الموظفين.",
+                proj_3_title: "نظام المتجر",
+                proj_3_desc: "إنشاء نظام لإدارة المستودعات والمخزون مع التحكم في المخزون ومعالجة الطلبات.",
+                proj_4_title: "إدارة المسابح",
+                proj_4_desc: "بناء نظام لإدارة مرافق المسابح، بما في ذلك تتبع العضوية ومعالجة الدفع.",
+                proj_5_title: "نظام المشتريات",
+                proj_5_desc: "تطوير نظام أوامر شراء لإدارة تدفقات عمل المشتريات والعلاقات مع الموردين.",
+                proj_6_title: "نظام المستندات",
+                proj_6_desc: "تصميم نظام لإدارة المستندات لتخزين الملفات بشكل آمن، والتحكم في الإصدارات، وإدارة الوصول.",
+                // Contact
+                contact_title: "تواصل معي",
+                contact_subtitle: "أنا منفتح حاليًا على فرص جديدة. لنتواصل!",
+                contact_button: "راسلني عبر البريد الإلكتروني",
+                // Footer
+                footer_main_text: "يعقوب داود محمد. جميع الحقوق محفوظة."
             }
         };
 
-        // Scroll animation logic
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
+        // --- DYNAMIC CONTENT INJECTION ---
+        function populateContent(lang) {
+            // Experience Timeline
+            const expTimeline = document.getElementById('experience-timeline');
+            expTimeline.innerHTML = `
+                <div class="relative flex items-start pl-12 rtl:pl-0 rtl:pr-12">
+                     <span class="absolute left-0 rtl:left-auto rtl:right-0 top-0 flex items-center justify-center w-10 h-10 bg-blue-600 rounded-full text-white ring-8 ring-gray-50"><i class="fas fa-briefcase"></i></span>
+                    <div class="bg-white p-6 rounded-lg border w-full card-hover">
+                        <h3 class="font-bold text-xl mb-1">${translations[lang].exp_1_title}</h3>
+                        <p class="text-blue-600 font-medium mb-2">${translations[lang].exp_1_org}</p>
+                        <p class="text-gray-600">${translations[lang].exp_1_desc}</p>
+                    </div>
+                </div>
+                <div class="relative flex items-start pl-12 rtl:pl-0 rtl:pr-12">
+                    <span class="absolute left-0 rtl:left-auto rtl:right-0 top-0 flex items-center justify-center w-10 h-10 bg-blue-600 rounded-full text-white ring-8 ring-gray-50"><i class="fas fa-chalkboard-teacher"></i></span>
+                    <div class="bg-white p-6 rounded-lg border w-full card-hover">
+                        <h3 class="font-bold text-xl mb-1">${translations[lang].exp_2_title}</h3>
+                        <p class="text-blue-600 font-medium mb-2">${translations[lang].exp_2_org}</p>
+                        <p class="text-gray-600">${translations[lang].exp_2_desc}</p>
+                    </div>
+                </div>
+                 <div class="relative flex items-start pl-12 rtl:pl-0 rtl:pr-12">
+                    <span class="absolute left-0 rtl:left-auto rtl:right-0 top-0 flex items-center justify-center w-10 h-10 bg-blue-600 rounded-full text-white ring-8 ring-gray-50"><i class="fas fa-chalkboard-teacher"></i></span>
+                    <div class="bg-white p-6 rounded-lg border w-full card-hover">
+                        <h3 class="font-bold text-xl mb-1">${translations[lang].exp_3_title}</h3>
+                        <p class="text-blue-600 font-medium mb-2">${translations[lang].exp_3_org}</p>
+                        <p class="text-gray-600">${translations[lang].exp_3_desc}</p>
+                    </div>
+                </div>
+                <div class="relative flex items-start pl-12 rtl:pl-0 rtl:pr-12">
+                     <span class="absolute left-0 rtl:left-auto rtl:right-0 top-0 flex items-center justify-center w-10 h-10 bg-blue-600 rounded-full text-white ring-8 ring-gray-50"><i class="fas fa-code"></i></span>
+                    <div class="bg-white p-6 rounded-lg border w-full card-hover">
+                        <h3 class="font-bold text-xl mb-1">${translations[lang].exp_4_title}</h3>
+                        <p class="text-blue-600 font-medium mb-2">${translations[lang].exp_4_org}</p>
+                        <p class="text-gray-600">${translations[lang].exp_4_desc}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Education List
+            const eduList = document.getElementById('education-list');
+            eduList.innerHTML = `
+                <div class="bg-white p-6 rounded-lg border card-hover flex items-start space-x-4 rtl:space-x-reverse">
+                    <i class="fas fa-graduation-cap text-3xl text-blue-600 mt-1"></i>
+                    <div>
+                        <h3 class="font-bold text-xl mb-1">${translations[lang].edu_1_title}</h3>
+                        <p class="text-gray-500">${translations[lang].edu_1_org}</p>
+                    </div>
+                </div>
+                 <div class="bg-white p-6 rounded-lg border card-hover flex items-start space-x-4 rtl:space-x-reverse">
+                    <i class="fas fa-certificate text-3xl text-blue-600 mt-1"></i>
+                    <div>
+                        <h3 class="font-bold text-xl mb-1">${translations[lang].edu_2_title}</h3>
+                        <p class="text-gray-500">${translations[lang].edu_2_org}</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg border card-hover flex items-start space-x-4 rtl:space-x-reverse">
+                    <i class="fas fa-certificate text-3xl text-blue-600 mt-1"></i>
+                    <div>
+                        <h3 class="font-bold text-xl mb-1">${translations[lang].edu_3_title}</h3>
+                        <p class="text-gray-500">${translations[lang].edu_3_org}</p>
+                    </div>
+                </div>
+            `;
+
+            // Project List
+            const projectList = document.getElementById('project-list');
+            projectList.innerHTML = `
+                <div class="bg-white p-6 rounded-lg border card-hover"><h3 class="font-bold text-xl mb-2">${translations[lang].proj_1_title}</h3><p class="text-gray-600">${translations[lang].proj_1_desc}</p></div>
+                <div class="bg-white p-6 rounded-lg border card-hover"><h3 class="font-bold text-xl mb-2">${translations[lang].proj_2_title}</h3><p class="text-gray-600">${translations[lang].proj_2_desc}</p></div>
+                <div class="bg-white p-6 rounded-lg border card-hover"><h3 class="font-bold text-xl mb-2">${translations[lang].proj_3_title}</h3><p class="text-gray-600">${translations[lang].proj_3_desc}</p></div>
+                <div class="bg-white p-6 rounded-lg border card-hover"><h3 class="font-bold text-xl mb-2">${translations[lang].proj_4_title}</h3><p class="text-gray-600">${translations[lang].proj_4_desc}</p></div>
+                <div class="bg-white p-6 rounded-lg border card-hover"><h3 class="font-bold text-xl mb-2">${translations[lang].proj_5_title}</h3><p class="text-gray-600">${translations[lang].proj_5_desc}</p></div>
+                <div class="bg-white p-6 rounded-lg border card-hover"><h3 class="font-bold text-xl mb-2">${translations[lang].proj_6_title}</h3><p class="text-gray-600">${translations[lang].proj_6_desc}</p></div>
+            `;
+        }
+
+        // --- LANGUAGE SWITCHER LOGIC ---
+        let currentLang = 'en';
+
+        const switchLanguage = (lang) => {
+            currentLang = lang;
+            // Set language and direction
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            // Translate all elements with data-translate attribute
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
                 }
             });
-        }, { threshold: 0.1 });
+            
+            // Populate dynamic content sections
+            populateContent(lang);
+        };
 
-        document.querySelectorAll('.scroll-animate').forEach(el => {
-            observer.observe(el);
-        });
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize with default language
+            switchLanguage(currentLang);
 
-        // Close mobile menu when a link is clicked
-        document.querySelectorAll('#mobile-menu a, #navbar a[href^="#"]').forEach(link => {
-            link.addEventListener('click', () => {
-                if(!mobileMenu.classList.contains('hidden')) {
-                   mobileMenu.classList.add('hidden');
+            // Setup language switcher
+            const langMenuButton = document.getElementById('lang-menu-button');
+            const langMenu = document.getElementById('lang-menu');
+            
+            langMenuButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langMenu.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', () => {
+                if (!langMenu.classList.contains('hidden')) {
+                    langMenu.classList.add('hidden');
                 }
             });
+
+            langMenu.addEventListener('click', (e) => {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                    const lang = e.target.getAttribute('data-lang');
+                    switchLanguage(lang);
+                }
+            });
+
+            // --- GENERAL UI SCRIPT ---
+            // Set current year in footer
+            const yearSpan = document.getElementById('year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Sticky nav logic
+            const navbar = document.getElementById('navbar');
+            window.onscroll = () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('nav-sticky');
+                } else {
+                    navbar.classList.remove('nav-sticky');
+                }
+            };
+
+            // Scroll animation logic
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('#mobile-menu a, #navbar a[href^="#"]').forEach(link => {
+                link.addEventListener('click', () => {
+                    if(!mobileMenu.classList.contains('hidden')) {
+                       mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
         });
+
     </script>
 </body>
 </html>
