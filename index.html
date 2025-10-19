@@ -117,13 +117,13 @@
         }
     </style>
 </head>
-<body class="bg-slate-950 text-gray-100">
+<body class="bg-slate-950 text-gray-100 pb-24 md:pb-0">
 
     <!-- Sticky Navigation Bar -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <nav id="navbar" class="fixed inset-x-0 bottom-0 md:top-0 md:bottom-auto z-50 transition-all duration-300 flex flex-col md:block">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mt-5">
-                <div class="flex items-center justify-between h-20 px-4 sm:px-6 glass-card rounded-full border border-white/10 bg-white/10 shadow-2xl">
+            <div class="md:mt-5">
+                <div class="flex items-center justify-between h-16 md:h-20 px-4 sm:px-6 glass-card rounded-3xl md:rounded-full border border-white/10 bg-white/10 shadow-2xl w-full">
                     <a href="#hero" class="text-2xl font-semibold tracking-tight text-white nav-brand transition-colors" data-translate="nav_brand">Yaqob Dawod</a>
                     
                     <div class="flex items-center gap-4">
@@ -141,32 +141,41 @@
                             <button id="lang-menu-button" class="flex items-center justify-center w-11 h-11 rounded-full text-white hover:bg-white/20 focus:ring-2 focus:ring-offset-2 focus:ring-blue-100 focus:ring-offset-slate-900 transition-colors duration-200" aria-label="Change language" aria-expanded="false">
                                 <i class="fas fa-globe text-xl"></i>
                             </button>
-                            <div id="lang-menu" class="hidden absolute right-0 mt-3 w-32 rounded-xl bg-white/95 shadow-xl backdrop-blur py-1 z-50">
+                            <div id="lang-menu" class="hidden absolute right-0 bottom-full mb-3 md:bottom-auto md:top-full md:mt-3 md:mb-0 w-32 rounded-xl bg-white/95 shadow-xl backdrop-blur py-1 z-50">
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg" data-lang="en">English</a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg" data-lang="ku">کوردی</a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded-lg" data-lang="ar">العربية</a>
                             </div>
                         </div>
 
-                        <!-- Mobile menu button -->
-                        <div class="md:hidden">
-                            <button id="mobile-menu-button" class="inline-flex items-center justify-center w-11 h-11 rounded-full text-white hover:text-white hover:bg-white/20 focus:ring-2 focus:ring-blue-100 focus:ring-offset-2 focus:ring-offset-slate-900 transition-colors duration-200" aria-label="Toggle navigation" aria-expanded="false">
-                                <i class="fas fa-bars text-xl"></i>
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="md:hidden hidden bg-white/95 text-slate-900 shadow-2xl rounded-3xl mx-4 mt-3 border border-white/40">
-            <div class="px-4 pt-5 pb-6 space-y-2">
-                <a href="#profile" class="block text-sm font-medium rounded-full px-4 py-3 bg-white/60 hover:bg-blue-50 hover:text-blue-600 transition-colors" data-translate="nav_profile_mobile">Profile</a>
-                <a href="#skills" class="block text-sm font-medium rounded-full px-4 py-3 bg-white/60 hover:bg-blue-50 hover:text-blue-600 transition-colors" data-translate="nav_skills_mobile">Skills</a>
-                <a href="#experience" class="block text-sm font-medium rounded-full px-4 py-3 bg-white/60 hover:bg-blue-50 hover:text-blue-600 transition-colors" data-translate="nav_experience_mobile">Experience</a>
-                <a href="#projects" class="block text-sm font-medium rounded-full px-4 py-3 bg-white/60 hover:bg-blue-50 hover:text-blue-600 transition-colors" data-translate="nav_projects_mobile">Projects</a>
-                <a href="#contact" class="block text-sm font-semibold rounded-full px-4 py-3 bg-blue-600 text-white hover:bg-blue-500 transition-colors" data-translate="nav_contact_mobile">Contact Me</a>
+        <div id="mobile-menu" class="md:hidden bg-white/95 text-slate-900 shadow-2xl rounded-3xl mx-4 mb-3 md:mt-3 md:mb-0 border border-white/40">
+            <div class="flex items-center justify-between gap-1 px-2 py-2">
+                <a href="#profile" class="flex-1 flex flex-col items-center justify-center gap-1 text-xs font-medium rounded-2xl px-2 py-2 bg-white/60 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-user text-base"></i>
+                    <span data-translate="nav_profile_mobile">Profile</span>
+                </a>
+                <a href="#skills" class="flex-1 flex flex-col items-center justify-center gap-1 text-xs font-medium rounded-2xl px-2 py-2 bg-white/60 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-screwdriver-wrench text-base"></i>
+                    <span data-translate="nav_skills_mobile">Skills</span>
+                </a>
+                <a href="#experience" class="flex-1 flex flex-col items-center justify-center gap-1 text-xs font-medium rounded-2xl px-2 py-2 bg-white/60 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-briefcase text-base"></i>
+                    <span data-translate="nav_experience_mobile">Experience</span>
+                </a>
+                <a href="#projects" class="flex-1 flex flex-col items-center justify-center gap-1 text-xs font-medium rounded-2xl px-2 py-2 bg-white/60 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-diagram-project text-base"></i>
+                    <span data-translate="nav_projects_mobile">Projects</span>
+                </a>
+                <a href="#contact" class="flex-1 flex flex-col items-center justify-center gap-1 text-xs font-semibold rounded-2xl px-2 py-2 bg-blue-600 text-white hover:bg-blue-500 transition-colors">
+                    <i class="fas fa-envelope-open-text text-base"></i>
+                    <span data-translate="nav_contact_mobile">Contact Me</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -948,23 +957,23 @@
                 yearSpan.textContent = new Date().getFullYear();
             }
 
-            // Mobile menu toggle
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
-                const isHidden = mobileMenu.classList.toggle('hidden');
-                mobileMenuButton.setAttribute('aria-expanded', String(!isHidden));
-            });
-
             // Sticky nav logic
             const navbar = document.getElementById('navbar');
-            window.onscroll = () => {
-                if (window.scrollY > 50) {
+            const desktopQuery = window.matchMedia('(min-width: 768px)');
+            const handleSticky = () => {
+                if (desktopQuery.matches && window.scrollY > 50) {
                     navbar.classList.add('nav-sticky');
                 } else {
                     navbar.classList.remove('nav-sticky');
                 }
             };
+            window.addEventListener('scroll', handleSticky);
+            if (typeof desktopQuery.addEventListener === 'function') {
+                desktopQuery.addEventListener('change', handleSticky);
+            } else {
+                desktopQuery.addListener(handleSticky);
+            }
+            handleSticky();
 
             // Scroll animation logic
             const observer = new IntersectionObserver((entries) => {
@@ -976,12 +985,16 @@
             }, { threshold: 0.1 });
             document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
 
-            // Close mobile menu when a link is clicked
+            // Smooth scroll for in-page links
             document.querySelectorAll('#mobile-menu a, #navbar a[href^="#"]').forEach(link => {
-                link.addEventListener('click', () => {
-                    if(!mobileMenu.classList.contains('hidden')) {
-                       mobileMenu.classList.add('hidden');
-                       mobileMenuButton.setAttribute('aria-expanded', 'false');
+                link.addEventListener('click', (event) => {
+                    const href = link.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        const target = document.querySelector(href);
+                        if (target) {
+                            event.preventDefault();
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
                     }
                 });
             });
