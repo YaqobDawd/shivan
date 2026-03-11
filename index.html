@@ -479,6 +479,26 @@
             font-variant-numeric: tabular-nums;
         }
 
+        /* ─── SCROLL INDICATOR ─────────────────────────────────── */
+        .scroll-chevron-1,
+        .scroll-chevron-2,
+        .scroll-chevron-3 {
+            display: block;
+            animation: chevronDrop 1.6s ease-in-out infinite;
+        }
+        .scroll-chevron-2 { animation-delay: 0.18s; }
+        .scroll-chevron-3 { animation-delay: 0.36s; }
+
+        @keyframes chevronDrop {
+            0%, 100% { transform: translateY(0);   opacity: 1; }
+            50%       { transform: translateY(5px); opacity: 0.6; }
+        }
+
+        html.light .scroll-hint span { color: rgba(15,23,42,0.35); }
+        html.light .scroll-chevron-1 { color: #0369a1 !important; }
+        html.light .scroll-chevron-2 { color: rgba(3,105,161,0.5) !important; }
+        html.light .scroll-chevron-3 { color: rgba(3,105,161,0.2) !important; }
+
         .floating-card {
             animation: float 6s ease-in-out infinite;
         }
@@ -1160,9 +1180,12 @@
         </div>
 
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-            <div class="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2">
-                <div class="w-1.5 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 scroll-hint">
+            <span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-white/30 select-none">Scroll</span>
+            <div class="relative flex flex-col items-center gap-0.5">
+                <i class="fas fa-chevron-down text-xs scroll-chevron-1" style="color:rgba(56,189,248,0.9)"></i>
+                <i class="fas fa-chevron-down text-xs scroll-chevron-2" style="color:rgba(56,189,248,0.55)"></i>
+                <i class="fas fa-chevron-down text-xs scroll-chevron-3" style="color:rgba(56,189,248,0.2)"></i>
             </div>
         </div>
     </section>
