@@ -383,21 +383,101 @@
             opacity: 0.3;
         }
 
-        .reveal {
+        /* ─── SCROLL REVEAL — spring easing ───────────────────── */
+        .reveal, .reveal-left, .reveal-right, .reveal-scale {
+            transition:
+                opacity  0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                filter   0.75s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+        .reveal        { opacity: 0; transform: translateY(44px);  filter: blur(4px); }
+        .reveal-left   { opacity: 0; transform: translateX(-50px); filter: blur(3px); }
+        .reveal-right  { opacity: 0; transform: translateX(50px);  filter: blur(3px); }
+        .reveal-scale  { opacity: 0; transform: scale(0.88);       filter: blur(4px); }
+
+        .reveal.active, .reveal-left.active,
+        .reveal-right.active, .reveal-scale.active {
+            opacity: 1; transform: none; filter: blur(0px);
+        }
+
+        .stagger-1 { transition-delay: 0.08s; }
+        .stagger-2 { transition-delay: 0.18s; }
+        .stagger-3 { transition-delay: 0.28s; }
+        .stagger-4 { transition-delay: 0.38s; }
+        .stagger-5 { transition-delay: 0.48s; }
+        .stagger-6 { transition-delay: 0.58s; }
+
+        /* ─── SCROLL PROGRESS BAR ──────────────────────────────── */
+        .scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, #38bdf8, #a855f7, #ec4899);
+            z-index: 10000;
+            border-radius: 0 2px 2px 0;
+            transition: width 0.08s linear;
+            box-shadow: 0 0 10px rgba(56,189,248,0.6);
+        }
+
+        /* ─── CURSOR ORB ───────────────────────────────────────── */
+        .cursor-orb {
+            position: fixed;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56,189,248,0.9) 0%, transparent 75%);
+            pointer-events: none; z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+            mix-blend-mode: screen;
+        }
+        .cursor-trail {
+            position: fixed;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(168,85,247,0.25) 0%, transparent 70%);
+            pointer-events: none; z-index: 9997;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+        }
+        html.light .cursor-orb  { mix-blend-mode: multiply; background: radial-gradient(circle, rgba(3,105,161,0.5) 0%, transparent 75%); }
+        html.light .cursor-trail { mix-blend-mode: multiply; background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%); }
+        @media (hover: none) { .cursor-orb, .cursor-trail { display: none; } }
+
+        /* ─── CARD TILT + GLOW ─────────────────────────────────── */
+        .tilt-card {
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: transform 0.12s ease !important;
+        }
+        /* Disable CSS hover transform on tilt cards — JS handles it instead */
+        .glass-card.tilt-card:not(.floating-card):hover {
+            transform: none;
+        }
+        .tilt-glow {
+            position: absolute; inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(circle at var(--mx,50%) var(--my,50%),
+                rgba(56,189,248,0.18) 0%, transparent 65%);
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.35s ease;
+            pointer-events: none; z-index: 0;
+        }
+        .tilt-card:hover .tilt-glow { opacity: 1; }
+        html.light .tilt-glow {
+            background: radial-gradient(circle at var(--mx,50%) var(--my,50%),
+                rgba(3,105,161,0.12) 0%, transparent 65%);
         }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* ─── MAGNETIC BUTTON ──────────────────────────────────── */
+        .btn-glow { will-change: transform; }
 
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-        .stagger-4 { transition-delay: 0.4s; }
+        /* ─── COUNTER NUMBER ───────────────────────────────────── */
+        .counter-num {
+            display: inline-block;
+            font-variant-numeric: tabular-nums;
+        }
 
         .floating-card {
             animation: float 6s ease-in-out infinite;
@@ -612,12 +692,26 @@
             transition: width 1s ease-out;
         }
 
+        /* ─── THEME TRANSITION (only active during the switch) ── */
+        html.theme-transition,
+        html.theme-transition *,
+        html.theme-transition *::before,
+        html.theme-transition *::after {
+            transition:
+                background-color 0.45s ease,
+                background      0.45s ease,
+                color           0.45s ease,
+                border-color    0.45s ease,
+                box-shadow      0.45s ease,
+                opacity         0.45s ease !important;
+        }
+
         /* ─── THEME TOGGLE BUTTON ─────────────────────────── */
         #theme-toggle {
             transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
         }
         #theme-toggle i {
-            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease;
+            transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease;
         }
 
         /* ═══════════════════════════════════════════════════════
@@ -861,7 +955,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 md:h-20">
                 <a href="#hero" class="text-xl md:text-2xl font-bold text-gradient-animated" data-translate="nav_brand">
-                    Yaqob<span class="text-white/80 font-light">Dawod</span>
+                    Yaqob<span class="text-white/80 font-light"> Dawod</span>
                 </a>
 
                 <!-- Desktop Nav -->
@@ -984,15 +1078,15 @@
                     <!-- Stats -->
                     <div class="grid grid-cols-3 gap-4 pt-4">
                         <div class="stat-card rounded-2xl p-4 text-center group cursor-default">
-                            <p class="text-3xl font-bold text-cyan-400 group-hover:scale-110 transition-transform">09+</p>
+                            <p class="text-3xl font-bold text-cyan-400 group-hover:scale-110 transition-transform"><span class="counter-num" data-count="9" data-suffix="+">09+</span></p>
                             <p class="text-xs text-white/50 mt-1" data-translate="profile_stat_projects_label">Projects</p>
                         </div>
                         <div class="stat-card rounded-2xl p-4 text-center group cursor-default">
-                            <p class="text-3xl font-bold text-purple-400 group-hover:scale-110 transition-transform">500+</p>
+                            <p class="text-3xl font-bold text-purple-400 group-hover:scale-110 transition-transform"><span class="counter-num" data-count="500" data-suffix="+">500+</span></p>
                             <p class="text-xs text-white/50 mt-1" data-translate="profile_stat_students_label">Students</p>
                         </div>
                         <div class="stat-card rounded-2xl p-4 text-center group cursor-default">
-                            <p class="text-3xl font-bold text-pink-400 group-hover:scale-110 transition-transform">06</p>
+                            <p class="text-3xl font-bold text-pink-400 group-hover:scale-110 transition-transform"><span class="counter-num" data-count="6" data-suffix="">06</span></p>
                             <p class="text-xs text-white/50 mt-1" data-translate="profile_stat_cert_label">Certifications</p>
                         </div>
                     </div>
@@ -1805,7 +1899,7 @@
         const translations = {
             en: {
                 skip_to_content: "Skip to content",
-                nav_brand: "YaqobDawod",
+                nav_brand: "Yaqob Dawod",
                 nav_about: "About",
                 nav_skills: "Skills",
                 nav_experience: "Experience",
@@ -2183,9 +2277,9 @@
             },
             ba: {
     skip_to_content: "دەربازبە بۆ ناڤەرۆکێ",
-    nav_brand: "YaqobDawod",
+    nav_brand: "یەعقوب داود",
     nav_about: "دەربارە",
-    nav_skills: "شیاین (Skills)",
+    nav_skills: "شیان",
     nav_experience: "ئەزموون",
     nav_projects: "پڕۆژە",
     nav_contact: "بۆ پەیوەندیێ",
@@ -2308,7 +2402,7 @@
 },
             tr: {
                 skip_to_content: "İçeriğe geç",
-                nav_brand: "YaqobDawod",
+                nav_brand: "Yaqob Dawod",
                 nav_about: "Hakkımda",
                 nav_skills: "Beceriler",
                 nav_experience: "Deneyim",
@@ -2582,9 +2676,9 @@
         }
 
         // Scroll reveal animation
+        /* ─── SCROLL REVEAL ─────────────────────────────────────── */
         function initScrollReveal() {
-            const reveals = document.querySelectorAll('.reveal');
-
+            const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -2592,12 +2686,154 @@
                         observer.unobserve(entry.target);
                     }
                 });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
-
+            }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
             reveals.forEach(el => observer.observe(el));
+        }
+
+        /* ─── SCROLL PROGRESS BAR ─────────────────────────────── */
+        function initScrollProgress() {
+            const bar = document.createElement('div');
+            bar.className = 'scroll-progress';
+            document.body.appendChild(bar);
+            window.addEventListener('scroll', () => {
+                const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+                bar.style.width = Math.min(pct, 100) + '%';
+            }, { passive: true });
+        }
+
+        /* ─── CURSOR ORB ──────────────────────────────────────── */
+        function initCursorOrb() {
+            if (window.matchMedia('(hover: none)').matches) return;
+            const orb   = Object.assign(document.createElement('div'), { className: 'cursor-orb' });
+            const trail = Object.assign(document.createElement('div'), { className: 'cursor-trail' });
+            document.body.append(trail, orb);
+
+            let mx = -100, my = -100, tx = -100, ty = -100;
+            document.addEventListener('mousemove', e => {
+                mx = e.clientX; my = e.clientY;
+                orb.style.left = mx + 'px'; orb.style.top = my + 'px';
+            }, { passive: true });
+
+            (function tick() {
+                tx += (mx - tx) * 0.1; ty += (my - ty) * 0.1;
+                trail.style.left = tx + 'px'; trail.style.top = ty + 'px';
+                requestAnimationFrame(tick);
+            })();
+
+            document.querySelectorAll('a,button,.glass-card,.btn-glow,.skill-pill').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    orb.style.width = orb.style.height = '48px';
+                    orb.style.background = 'radial-gradient(circle,rgba(168,85,247,0.8) 0%,transparent 75%)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    orb.style.width = orb.style.height = '18px';
+                    orb.style.background = '';
+                });
+            });
+        }
+
+        /* ─── 3D CARD TILT ────────────────────────────────────── */
+        function initCardTilt() {
+            document.querySelectorAll('.glass-card').forEach(card => {
+                // Skip floating / absolutely-positioned hero cards
+                if (card.classList.contains('floating-card')) return;
+                if (card.classList.contains('absolute')) return;
+
+                card.classList.add('tilt-card');
+
+                // Only apply relative positioning if the card is statically placed
+                if (getComputedStyle(card).position === 'static') {
+                    card.style.position = 'relative';
+                }
+
+                const glow = document.createElement('div');
+                glow.className = 'tilt-glow';
+                card.insertBefore(glow, card.firstChild);
+
+                card.addEventListener('mousemove', e => {
+                    const r  = card.getBoundingClientRect();
+                    const nx = (e.clientX - r.left) / r.width;
+                    const ny = (e.clientY - r.top)  / r.height;
+                    const rx = (ny - 0.5) * -10;
+                    const ry = (nx - 0.5) *  10;
+                    card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.025,1.025,1.025)`;
+                    glow.style.setProperty('--mx', (nx * 100) + '%');
+                    glow.style.setProperty('--my', (ny * 100) + '%');
+                }, { passive: true });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(900px) rotateX(0) rotateY(0) scale3d(1,1,1)';
+                });
+            });
+        }
+
+        /* ─── COUNTER ANIMATION ───────────────────────────────── */
+        function initCounters() {
+            const nums = document.querySelectorAll('.counter-num[data-count]');
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const el     = entry.target;
+                    const target = +el.dataset.count;
+                    const suffix = el.dataset.suffix || '';
+                    const dur    = 1600;
+                    const t0     = performance.now();
+                    const pad    = target < 10 ? 2 : 0;
+                    function step(now) {
+                        const p = Math.min((now - t0) / dur, 1);
+                        const v = Math.round((1 - Math.pow(1 - p, 3)) * target);
+                        el.textContent = pad ? String(v).padStart(pad, '0') + suffix : v + suffix;
+                        if (p < 1) requestAnimationFrame(step);
+                    }
+                    requestAnimationFrame(step);
+                    obs.unobserve(el);
+                });
+            }, { threshold: 0.6 });
+            nums.forEach(n => obs.observe(n));
+        }
+
+        /* ─── MAGNETIC BUTTONS ────────────────────────────────── */
+        function initMagnetic() {
+            document.querySelectorAll('.btn-glow').forEach(btn => {
+                btn.addEventListener('mousemove', e => {
+                    const r = btn.getBoundingClientRect();
+                    const x = (e.clientX - r.left - r.width  / 2) * 0.18;
+                    const y = (e.clientY - r.top  - r.height / 2) * 0.18;
+                    btn.style.transform = `translate(${x}px,${y}px) translateY(-3px)`;
+                }, { passive: true });
+                btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+            });
+        }
+
+        /* ─── PARALLAX BLOBS ──────────────────────────────────── */
+        function initParallax() {
+            const blobs = [...document.querySelectorAll('.blob-bg')];
+            if (!blobs.length || window.matchMedia('(hover:none)').matches) return;
+            window.addEventListener('mousemove', e => {
+                const cx = (e.clientX / window.innerWidth  - 0.5) * 28;
+                const cy = (e.clientY / window.innerHeight - 0.5) * 28;
+                blobs.forEach((b, i) => {
+                    const f = (i + 1) * 0.35;
+                    b.style.transform = `translate(${cx*f}px,${cy*f}px)`;
+                });
+            }, { passive: true });
+        }
+
+        /* ─── HERO ENTRANCE ───────────────────────────────────── */
+        function initHeroEntrance() {
+            const wrap = document.querySelector('#hero .space-y-8');
+            if (!wrap) return;
+            [...wrap.children].forEach((el, i) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(36px)';
+                el.style.filter = 'blur(6px)';
+                el.style.transition = `opacity .75s cubic-bezier(.16,1,.3,1) ${i*.13}s,transform .75s cubic-bezier(.16,1,.3,1) ${i*.13}s,filter .75s cubic-bezier(.16,1,.3,1) ${i*.13}s`;
+                requestAnimationFrame(() => requestAnimationFrame(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                    el.style.filter = 'blur(0)';
+                }));
+            });
         }
 
         // Loading bar
@@ -2620,6 +2856,13 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             initLoadingBar();
+            initScrollProgress();
+            initCursorOrb();
+            initCardTilt();
+            initCounters();
+            initMagnetic();
+            initParallax();
+            initHeroEntrance();
 
             // ─── THEME TOGGLE ────────────────────────────────────────
             const themeToggle = document.getElementById('theme-toggle');
@@ -2644,10 +2887,27 @@
             themeToggle.addEventListener('click', () => {
                 const goLight = !document.documentElement.classList.contains('light');
                 localStorage.setItem('theme', goLight ? 'light' : 'dark');
+
+                // Enable transitions only for the duration of the switch
+                document.documentElement.classList.add('theme-transition');
                 applyTheme(goLight);
-                // Spin animation on click
-                themeIcon.style.transform = 'rotate(360deg)';
-                setTimeout(() => { themeIcon.style.transform = ''; }, 400);
+                setTimeout(() => {
+                    document.documentElement.classList.remove('theme-transition');
+                }, 500);
+
+                // Icon: fade out → swap → fade + spring in
+                themeIcon.style.opacity = '0';
+                themeIcon.style.transform = 'rotate(180deg) scale(0.5)';
+                setTimeout(() => {
+                    themeIcon.style.transition = 'none';
+                    themeIcon.style.transform = 'rotate(-180deg) scale(0.5)';
+                    themeIcon.style.opacity = '0';
+                    requestAnimationFrame(() => {
+                        themeIcon.style.transition = '';
+                        themeIcon.style.opacity = '1';
+                        themeIcon.style.transform = 'rotate(0deg) scale(1)';
+                    });
+                }, 200);
             });
             // ─────────────────────────────────────────────────────────
 
